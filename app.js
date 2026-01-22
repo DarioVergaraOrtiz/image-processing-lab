@@ -36,7 +36,7 @@ function apply(fn) {
   cv.imshow(canvasP, currentMat);
 }
 
-function reset() {
+window.reset = function () {
   if (!originalMat) return;
   currentMat = originalMat.clone();
   cv.imshow(canvasO, originalMat);
@@ -118,7 +118,9 @@ const presets = {
   },
   sharpen: mat => {
     let kernel = cv.matFromArray(3,3,cv.CV_32F,
-      [0,-1,0,-1,5,-1,0,-1,0]);
+      [0,-1,0,
+       -1,5,-1,
+       0,-1,0]);
     cv.filter2D(mat, mat, -1, kernel);
   }
 };
@@ -128,7 +130,7 @@ window.applyPreset = function (name) {
   apply(presets[name]);
 }
 
-/* THREE */
+/* THREE.JS */
 function initThree() {
   const container = document.getElementById("three-container");
   container.innerHTML = "";
