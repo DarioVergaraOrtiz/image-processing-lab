@@ -1,12 +1,13 @@
 let originalMat = null;
 let currentMat = null;
+let canvasO, canvasP;
 
-let canvasO = document.getElementById("canvasOriginal");
-let canvasP = document.getElementById("canvasProcessed");
-
-cv.onRuntimeInitialized = () => {
+function onOpenCvReady() {
+  canvasO = document.getElementById("canvasOriginal");
+  canvasP = document.getElementById("canvasProcessed");
   document.getElementById("upload").addEventListener("change", loadImage);
-};
+  console.log("OpenCV listo");
+}
 
 function loadImage(e) {
   let img = new Image();
@@ -106,31 +107,10 @@ function exportImage() {
   link.click();
 }
 
-const presets = {
-  anime: mat => {
-    cv.bilateralFilter(mat, mat, 9, 75, 75);
-    let gray = new cv.Mat();
-    cv.cvtColor(mat, gray, cv.COLOR_RGBA2GRAY);
-    cv.Canny(gray, mat, 80, 150);
-    gray.delete();
-  },
-  sharpen: mat => {
-    let kernel = cv.matFromArray(3,3,cv.CV_32F,
-      [0,-1,0,-1,5,-1,0,-1,0]);
-    cv.filter2D(mat, mat, -1, kernel);
-  }
-};
-
-function applyPreset(name) {
-  if (!name) return;
-  apply(presets[name]);
-}
-
 /* THREE */
 function initThree() {
   const container = document.getElementById("three-container");
   container.innerHTML = "";
-
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75,1,0.1,1000);
   const renderer = new THREE.WebGLRenderer();
