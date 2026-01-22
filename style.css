@@ -1,19 +1,27 @@
-/*style.css*/
 body {
   font-family: Arial;
-  text-align: center;
   background: #111;
   color: white;
+  text-align: center;
+}
+
+.controls button, select {
+  margin: 5px;
+  padding: 8px 12px;
+}
+
+.sliders {
+  margin: 15px;
+}
+
+.canvases {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 
 canvas {
+  max-width: 45vw;
+  max-height: 70vh;
   border: 2px solid white;
-  margin-top: 20px;
-  max-width: 90%;
-}
-
-button {
-  margin: 5px;
-  padding: 10px 15px;
-  font-size: 14px;
 }

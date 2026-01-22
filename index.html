@@ -5,25 +5,50 @@
   <title>Image Processing Lab</title>
   <link rel="stylesheet" href="style.css">
   <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160/build/three.min.js"></script>
 </head>
 <body>
 
 <h1>Image Processing Lab</h1>
 
 <input type="file" id="upload">
-<br><br>
 
 <div class="controls">
   <button onclick="reset()">Original</button>
-  <button onclick="rotate()">Rotar 45°</button>
-  <button onclick="scale()">Escalar 1.5x</button>
+  <button onclick="rotate()">Rotar</button>
+  <button onclick="scaleImg()">Escalar</button>
   <button onclick="sobel()">Sobel</button>
   <button onclick="canny()">Canny</button>
   <button onclick="clahe()">CLAHE</button>
   <button onclick="bilateral()">Bilateral</button>
+  <button onclick="exportImage()">Descargar</button>
+
+  <select onchange="applyPreset(this.value)">
+    <option value="">Presets</option>
+    <option value="anime">Anime Edge</option>
+    <option value="sharpen">Sharpen</option>
+  </select>
 </div>
 
-<canvas id="canvas"></canvas>
+<div class="sliders">
+  Ángulo <input type="range" id="angle" min="-180" max="180" value="45" oninput="rotate()">
+  Escala <input type="range" id="scale" min="50" max="200" value="100" oninput="scaleImg()">
+  Canny Min <input type="range" id="canny1" min="0" max="255" value="100">
+  Canny Max <input type="range" id="canny2" min="0" max="255" value="200">
+</div>
+
+<div class="canvases">
+  <div>
+    <h3>Original</h3>
+    <canvas id="canvasOriginal"></canvas>
+  </div>
+  <div>
+    <h3>Procesada</h3>
+    <canvas id="canvasProcessed"></canvas>
+  </div>
+</div>
+
+<div id="three-container"></div>
 
 <script src="app.js"></script>
 </body>
