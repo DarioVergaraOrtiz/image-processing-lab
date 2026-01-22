@@ -1,12 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-
 let originalMat = null;
 let currentMat = null;
 
 let canvasO = document.getElementById("canvasOriginal");
 let canvasP = document.getElementById("canvasProcessed");
 
-cv['onRuntimeInitialized'] = () => {
+cv.onRuntimeInitialized = () => {
   document.getElementById("upload").addEventListener("change", loadImage);
 };
 
@@ -36,14 +34,14 @@ function apply(fn) {
   cv.imshow(canvasP, currentMat);
 }
 
-window.reset = function () {
+function reset() {
   if (!originalMat) return;
   currentMat = originalMat.clone();
   cv.imshow(canvasO, originalMat);
   cv.imshow(canvasP, currentMat);
 }
 
-window.rotate = function () {
+function rotate() {
   let angle = +document.getElementById("angle").value;
   apply(mat => {
     let center = new cv.Point(mat.cols/2, mat.rows/2);
@@ -52,7 +50,7 @@ window.rotate = function () {
   });
 }
 
-window.scaleImg = function () {
+function scaleImg() {
   let s = +document.getElementById("scale").value / 100;
   apply(mat => {
     cv.resize(mat, mat, new cv.Size(0,0), s, s, cv.INTER_CUBIC);
@@ -61,7 +59,7 @@ window.scaleImg = function () {
   });
 }
 
-window.sobel = function () {
+function sobel() {
   apply(mat => {
     let gray = new cv.Mat();
     cv.cvtColor(mat, gray, cv.COLOR_RGBA2GRAY);
@@ -70,7 +68,7 @@ window.sobel = function () {
   });
 }
 
-window.canny = function () {
+function canny() {
   let t1 = +document.getElementById("canny1").value;
   let t2 = +document.getElementById("canny2").value;
   apply(mat => {
@@ -81,7 +79,7 @@ window.canny = function () {
   });
 }
 
-window.clahe = function () {
+function clahe() {
   apply(mat => {
     let lab = new cv.Mat();
     cv.cvtColor(mat, lab, cv.COLOR_RGBA2LAB);
@@ -94,13 +92,13 @@ window.clahe = function () {
   });
 }
 
-window.bilateral = function () {
+function bilateral() {
   apply(mat => {
     cv.bilateralFilter(mat, mat, 9, 75, 75);
   });
 }
 
-window.exportImage = function () {
+function exportImage() {
   if (!currentMat) return;
   let link = document.createElement("a");
   link.download = "processed.png";
@@ -118,22 +116,21 @@ const presets = {
   },
   sharpen: mat => {
     let kernel = cv.matFromArray(3,3,cv.CV_32F,
-      [0,-1,0,
-       -1,5,-1,
-       0,-1,0]);
+      [0,-1,0,-1,5,-1,0,-1,0]);
     cv.filter2D(mat, mat, -1, kernel);
   }
 };
 
-window.applyPreset = function (name) {
+function applyPreset(name) {
   if (!name) return;
   apply(presets[name]);
 }
 
-/* THREE.JS */
+/* THREE */
 function initThree() {
   const container = document.getElementById("three-container");
   container.innerHTML = "";
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75,1,0.1,1000);
   const renderer = new THREE.WebGLRenderer();
@@ -156,5 +153,3 @@ function initThree() {
   }
   animate();
 }
-
-});
