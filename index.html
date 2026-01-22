@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <title>Image Processing Lab</title>
   <link rel="stylesheet" href="style.css">
-  <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+
+  <!-- OpenCV DEBE ir sin async -->
+  <script src="https://docs.opencv.org/4.x/opencv.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/three@0.160/build/three.min.js"></script>
   <script src="app.js" defer></script>
 </head>
 <body>
-
 <h1>Image Processing Lab</h1>
 
 <input type="file" id="upload">
@@ -50,6 +52,5 @@
 </div>
 
 <div id="three-container"></div>
-
 </body>
 </html>
