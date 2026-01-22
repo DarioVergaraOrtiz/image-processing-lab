@@ -1,0 +1,19 @@
+/*style.css*/
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #111;
+  color: white;
+}
+
+canvas {
+  border: 2px solid white;
+  margin-top: 20px;
+  max-width: 90%;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+}

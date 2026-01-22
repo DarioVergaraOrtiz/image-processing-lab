@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Processing Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+</head>
+<body>
+
+<h1>Image Processing Lab</h1>
+
+<input type="file" id="upload">
+<br><br>
+
+<div class="controls">
+  <button onclick="reset()">Original</button>
+  <button onclick="rotate()">Rotar 45°</button>
+  <button onclick="scale()">Escalar 1.5x</button>
+  <button onclick="sobel()">Sobel</button>
+  <button onclick="canny()">Canny</button>
+  <button onclick="clahe()">CLAHE</button>
+  <button onclick="bilateral()">Bilateral</button>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script src="app.js"></script>
+</body>
+</html>
